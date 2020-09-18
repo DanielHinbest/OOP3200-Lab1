@@ -1,8 +1,10 @@
 /* Program Name :
-* Authors : Ryan Claysonand Daniel Hinbest
+* Authors : Ryan Clayson (100______) and Daniel Hinbest (100717231)
 * Date :
 * Description :
 */
+#include <string>
+
 class WorkTicket
 {
 private:
@@ -11,6 +13,8 @@ private:
 	int ticketDay;
 	int ticketMonth;
 	int ticketYear;
+	std::string issueDescription; //Could be public as well
 public:
-	int issueDescription;
+	WorkTicket();
+	WorkTicket(int number, int day, int month, int year);
 };

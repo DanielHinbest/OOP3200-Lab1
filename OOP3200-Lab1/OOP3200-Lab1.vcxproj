@@ -139,8 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MyConsoleInput.cpp" />
     <ClCompile Include="OOP3200-Lab1.cpp" />
     <ClCompile Include="WorkTicket.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyconsoleInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
