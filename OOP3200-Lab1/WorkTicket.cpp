@@ -1,9 +1,10 @@
 /* Program Name : OOP 3200 - Lab 1 - WorkTicket.cpp Class
 * Authors : Ryan Clayson (10055837) and Daniel Hinbest (100717231)
-* Date : 
-* Description :
+* Date : September 20, 2020
+* Description : A project to create and display a work ticket using the WorkTicket class
 */
 #include <string>
+#include <iostream>
 
 // class declaration 
 class WorkTicket
@@ -11,7 +12,7 @@ class WorkTicket
 	//private data members
 private:
 	int ticketNumber;
-	int clientID;
+	std::string clientID;
 	int ticketDay;
 	int ticketMonth;
 	int ticketYear;
@@ -20,8 +21,8 @@ private:
 	//Declaration for Constructor
 public:
 	WorkTicket();
-	WorkTicket(int, int, int, int);
-	bool SetWorkTicket(int id, std::string description); //I think
+	WorkTicket(int number, int day, int month, int year);
+	bool SetWorkTicket(int id); //I think
 	void ShowWorkTicket();
 	
 };
@@ -30,9 +31,10 @@ public:
 WorkTicket::WorkTicket()
 {
 	ticketNumber = 0;
-	int ticketDay;
-	int ticketMonth;
-	int ticketYear;
+	int ticketDay = 1;
+	int ticketMonth = 1;
+	int ticketYear = 2000;
+	//std:string clientID = ""
 }
 
 //Constructors - parameterized
@@ -50,10 +52,14 @@ long as the parameters are valid. ALL of the parameters must be valid in order f
 attributes to change. Validation rules are explained above for work ticket number and date. Client
 number and Description must be at least one character long. If no problems are detected, return
 TRUE. Otherwise return FALSE.
- */
-bool WorkTicket::SetWorkTicket(int id, std::string description)
+*/
+bool WorkTicket::SetWorkTicket(int ticket)
 {
-	
+	ticketNumber++;
+	clientID = ticketYear + ticketMonth + ticketYear + ticketNumber;
+	std::getline(std::cin, issueDescription);
+
+	return true;
 }
 
 void WorkTicket::ShowWorkTicket() //Display all attributes
