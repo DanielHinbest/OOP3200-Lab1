@@ -5,6 +5,8 @@
  */
 
 #include <iostream>
+#include "WorkTicket.cpp"
+#include "MyconsoleInput.h"
 
 int main()
 {
