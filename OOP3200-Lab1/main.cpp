@@ -4,12 +4,13 @@
  * Description: A project to create and display a work ticket using the WorkTicket class
  */
 
-#include <string>
 #include <iostream>
 #include<stdexcept>
 #include<sstream>
 #include<iomanip>
+#include "MyConsoleInput.h"
 //TODO: Fix all accessor and mutator names
+
 // class declaration 
 class WorkTicket
 {
@@ -20,127 +21,208 @@ private:
 	int ticketDay;
 	int ticketMonth;
 	int ticketYear;
-	std::string issueDescription; //Could be public as well
+	std::string issueDescription; 
 
 	//start of public
 public:
 	//Default constructor. If paramaters aren't declared, the ticket takes in these default parameters
-	WorkTicket() : ticketNumber(0), clientID(""), ticketDay(1), ticketMonth(1),
-				   ticketYear(2000), issueDescription("") {};
+	WorkTicket(int ticketNumber = 0, std::string clientID = "", int ticketDay = 1, int ticketMonth = 1,
+				  int ticketYear = 2000, std::string issueDescription = "");
 	
-	WorkTicket(int number, std::string id, int day, int month, int year, std::string description);
+	//All accessors. "Getters"
+	int GetTicketNumber();
+	std::string GetClientID();
+	int GetTicketDay();
+	int GetTicketMonth();
+	int GetTicketYear();
+	std::string GetIssueDescription();
+	std::string ShowWorkTicket() const;
+
+	//All mutators/ "Setters"
+	void SetTicketNumber(int ticketNumber);
+	void SetClientID(std::string clientID);
+	void SetTicketDay(int ticketDay);
+	void SetTicketMonth(int ticketMonth);
+	void SetTicketYear(int ticketYear);
+	void SetIssueDescription(std::string issueDescription);
+	bool SetWorkTicket(int number, std::string id, int day, int month, int year, std::string description);
 	
-	//Mutator Method. Sets attributes of the object to the parameters if valid. 
-	bool SetWorkTicket(int ticketNumber, std::string id, int day, int month, int year, std::string description); 
-	
-	//Accessor
-	void ShowWorkTicket();
-	
-	//Sets and Gets for all the attributes
-	
-	//ticketNumber
-	void SetticketNumber(int number);
-	int GetticketNumber() { return ticketNumber; }
-
-	//clientID
-	void SetclientID(std::string id);
-	std::string GetclientID() { return clientID; }
-
-	//ticketDay
-	void SetticketDay(int day);
-	int GetticketDay() { return ticketDay; }
-
-	//ticketMonth
-	void SetticketMonth(int month);
-	int GetticketMonth() { return ticketMonth; }
-
-	//ticketYear
-	void SetticketYear(int year);
-	int GetticketYear() { return ticketYear; }
-
-	//issueDescription
-	void SetissueDescription(std::string description);
-	std::string GetissueDescription() { return issueDescription; }
-
-	// end of class
-};
+	// end of public	
+};// end of class
 
 //Constructor Definition
 WorkTicket::WorkTicket(int number, std::string id, int day, int month, int year, std::string description)
 {
-	SetticketNumber(number);
-	SetclientID(id);
-	SetticketDay(day);
-	SetticketMonth(month);
-	SetticketYear(year);
-	SetissueDescription(description);
+	SetWorkTicket::WorkTicket(number, std::string id, day, month, year, std::string description);
 }
-WorkTicket::WorkTicket(int number, std::string id, int day, int month, int year, std::string description)
-{
-	const int MAX_DAY = 31;
-	const int MAX_MONTH = 12;
-	const int MAX_YEAR = 2099;
-	const int MIN_YEAR = 2000;
-	bool valid = true;
 
-	if (ticketNumber < 0 || day <1 || day > MAX_DAY || month <1 || month > MAX_MONTH || year < MIN_YEAR || year > MAX_YEAR)
-		valid = false;
-	else if (clientID.length() < 1 || description.length() < 1)
-		valid = false;
-	else
-	{
-		ticketNumber = number;
-		clientID = id;
-		ticketDay = day;
-		ticketMonth = month;
-		ticketYear = year;
-		issueDescription = description;
-	}
-	//return valid;
+bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, int year, std::string description)
+{
+	SetTicketNumber(number);
+	SetClientID(id);
+	SetTicketDay(day);
+	SetTicketMonth(month);
+	SetTicketYear(year);
+	SetIssueDescription(description);
+
+	return true;
 }
 
 
 //Class definiton section
 //SetWorkTicket - Sets all the attributes in the class
-bool WorkTicket::SetWorkTicket(int ticketNumber, std::string id, int day, int month, int year, std::string description)
-{
-	bool returnValue;
-	ticketNumber++;
-	clientID = ticketYear + ticketMonth + ticketYear + ticketNumber;
-	std::getline(std::cin, issueDescription);
+//bool WorkTicket::SetWorkTicket(int ticketNumber, std::string id, int day, int month, int year, std::string description)
+//{
+//	bool returnValue;
+//	ticketNumber++;
+//	clientID = ticketYear + ticketMonth + ticketYear + ticketNumber;
+//	std::getline(std::cin, issueDescription);
+//
+//	if (issueDescription.length() < 1)
+//		returnValue = false;
+//	else
+//		returnValue = true;
+//	return returnValue;
+//}
 
-	if (issueDescription.length() < 1)
-		returnValue = false;
-	else
-		returnValue = true;
-	return returnValue;
-}
-
-//ShowWorkTicket - Outputs ticket information to the screen
-void WorkTicket::ShowWorkTicket() //Display all attributes
-{
-	std::cout << "Ticket Number: " << GetticketNumber << std::endl
-		<< "Client ID: " << GetclientID << std::endl
-		<< "Ticket Date: " << GetticketDay << GetticketMonth << GetticketYear << std::endl
-		<< "Issue Description: " << "\n\t" << GetissueDescription << std::endl;
-	
-}
 
 int main()
 {
-	//Constant variable declaration
-	const int NUMBER_OF_TICKETS = 3;
-	//WorkTicket class declaration
-	WorkTicket ticket[NUMBER_OF_TICKETS];
+	WorkTicket arr[3];
+	int numberInput, dayInput, monthInput, yearInput;
+	std::string idInput, descriptionInput;
 
-	//Input loop
-	for (int i = 0; i <= NUMBER_OF_TICKETS; i++)
+	cout << "Please enter the following information when prompted." << endl;
+
+	for (int i = 0; i < 3; i++)
 	{
-		std::cout << "Enter the description of your issue ";
-		ticket[i].SetWorkTicket(i + 1);
+		try
+		{
+			cout << "\nEnter ticket number: ";
+			numberInput = ConsoleInput::ReadInteger();
+			arr[i].SetTicketNumber(numberInput);
+
+			cout << "\nEnter Client ID: ";
+			cin >> idInput;
+			arr[i].SetClientID(idInput);
+
+			cout << "\nEnter Date: ";
+			cin >> dayInput >> monthInput >> yearInput;
+			arr[i].SetTicketDay(dayInput);
+			arr[i].SetTicketMonth(monthInput);
+			arr[i].SetTicketYear(yearInput);
+
+			cout << "\nEnter Descriptive Issue: ";
+			cin >> descriptionInput; 
+			arr[i].SetIssueDescription(descriptionInput); 
+		}
+		catch (const exception& ex)
+		{
+			cerr << ex.what();
+		}
+	}
+	cout << endl;
+
+	cout << "Following information was received.";
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Ticket Number: " << arr[i].GetTicketNumber() << endl;
+		cout << "Client ID: " << arr[i].GetClientID() << endl;
+		cout << "Date: " << arr[i].GetTicketDay() << " / " << arr[i].GetTicketMonth()
+			 << " / " << arr[i].GetTicketYear() << endl;
+		cout << "Description: " << arr[i].GetIssueDescription() << endl << endl;
 	}
 
-	//Output loop
-	for (int i = 0; i <= NUMBER_OF_TICKETS; i++)
-		ticket[1].ShowWorkTicket();
+void WorkTicket::SetTicketNumber(int number)
+{
+	if (number > 0) 
+	{
+		ticketNumber = number;
+	}
+	else
+	{
+		throw invalid_argument("Ticket Number must be a positive whole number. Please try again.");
+
+	}
 }
+void WorkTicket::SetClientID(std:string id)
+{
+	if (id.length() > 0)
+	{
+		clientID = id;
+	}
+	else
+	{
+		throw invalid_argument("Please enter client ID using alpha-numeric.");
+	}
+}
+void WorkTicket::SetTicketDay(int day)
+{
+	if (day >= 1 && day <= 31)
+	{
+		ticketDay = day;
+	}
+	else
+	{
+		throw invalid_argument("Invalid Day. Please enter day between 1 and 31");
+	}
+}
+void WorkTicket::SetTicketMonth(int month)
+{
+	if (month >= 1 && month <= 12)
+	{
+		ticketMonth = month;
+	}
+	else
+	{
+		throw invalid_argument("Invalid Month. Please enter month between 1 and 12");
+	}
+}
+void WorkTicket::SetTicketYear(int year)
+{
+	if (year <= 2099 && year >= 2000)
+	{
+		ticketYear = year;
+	}
+	else
+	{
+		throw invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
+	}
+}
+void WorkTicket::SetIssueDescription(std::string description)
+{
+	if (description.length() > 0)
+	{
+		issueDescription = description;
+	}
+	else
+	{
+		throw invalid_argument("Please enter descriptive issue.");
+	}
+}
+
+int WorkTicket::GetTicketNumber()
+{
+	return ticketNumber;
+}
+std::string WorkTicket::GetClientID()
+{
+	return clientID;
+}
+int WorkTicket::GetTicketDay()
+{
+	return ticketDay;
+}
+int WorkTicket::GetTicketMonth()
+{
+	return ticketMonth;
+}
+int WorkTicket::GetTicketYear()
+{
+	return ticketYear;
+}
+std::string WorkTicket::GetIssueDescription()
+{
+	return issueDescription;
+}
+
