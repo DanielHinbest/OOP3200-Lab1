@@ -36,7 +36,7 @@ public:
 	int GetTicketMonth();
 	int GetTicketYear();
 	std::string GetIssueDescription();
-	std::string ShowWorkTicket() const;
+	void ShowWorkTicket() const;
 
 	//All mutators/ "Setters"
 	void SetTicketNumber(int ticketNumber);
@@ -53,38 +53,51 @@ public:
 //Constructor Definition
 WorkTicket::WorkTicket(int number, std::string id, int day, int month, int year, std::string description)
 {
-	WorkTicket(number, id, day, month, year, description);
+	SetTicketNumber(ticketNumber);
+	SetClientID(clientID);
+	SetTicketMonth(month);
+	SetTicketDay(day);
+	SetTicketYear(year);
+	SetIssueDescription(description);
 }
 
 bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, int year, std::string description)
 {
-	SetTicketNumber(number);
-	SetClientID(id);
-	SetTicketDay(day);
-	SetTicketMonth(month);
-	SetTicketYear(year);
-	SetIssueDescription(description);
+	const int DAYS = 31;
+	const int MONTHS = 12;
+	const int YEAR_MINIMUM = 2000;
+	const int YEAR_MAXIMUM = 2099;
 
-	return true;
+	bool returnValue;
+
+	
+	if (ticketNumber <= 0 || month < 1 || month > MONTHS
+	|| day < 1 || day > DAYS || year < YEAR_MINIMUM || year > YEAR_MAXIMUM)
+		returnValue = false;
+	else if (clientID.length() < 1 || description.length() < 1)
+		returnValue = false;
+	else
+	{
+		ticketNumber = number;
+		clientID = id;
+		ticketDay = day;
+		ticketMonth = month;
+		ticketYear = year;
+		issueDescription = description;
+		return true;
+	}
+	
+
+	return returnValue;
 }
 
-
-//Class definiton section
-//SetWorkTicket - Sets all the attributes in the class
-//bool WorkTicket::SetWorkTicket(int ticketNumber, std::string id, int day, int month, int year, std::string description)
-//{
-//	bool returnValue;
-//	ticketNumber++;
-//	clientID = ticketYear + ticketMonth + ticketYear + ticketNumber;
-//	std::getline(std::cin, issueDescription);
-//
-//	if (issueDescription.length() < 1)
-//		returnValue = false;
-//	else
-//		returnValue = true;
-//	return returnValue;
-//}
-
+void WorkTicket::ShowWorkTicket() const
+{
+	std::cout << "\nTicket Number: " << ticketNumber
+		<< "\nClient ID: " << clientID
+		<< "\nDate: " << ticketDay << "/" << ticketMonth << "/" << ticketYear
+		<< "\nDescription:\n\t" << issueDescription << std::endl;
+}
 
 int main()
 {
@@ -107,7 +120,13 @@ int main()
 			arr[i].SetClientID(idInput);
 
 			std::cout << "\nEnter Date: ";
-			std::cin >> dayInput >> monthInput >> yearInput;
+			std::cout << "\n\tDay: ";
+			std::cin >> dayInput;
+			std::cout << "\n\tMonth: ";
+			std::cin >> monthInput;
+			std::cout << "\n\tYear: ";
+			std::cin >> yearInput;
+
 			arr[i].SetTicketDay(dayInput);
 			arr[i].SetTicketMonth(monthInput);
 			arr[i].SetTicketYear(yearInput);
@@ -136,67 +155,90 @@ int main()
 
 void WorkTicket::SetTicketNumber(int number)
 {
-	if (number > 0) 
+	
+	
+	try
 	{
-		ticketNumber = number;
+		if (number > 0) 
+		{
+			ticketNumber = number;
+		}
 	}
-	else
+	catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Ticket Number must be a positive whole number. Please try again.");
-
 	}
+	
 }
 void WorkTicket::SetClientID(std::string id)
 {
-	if (id.length() > 0)
+	try
 	{
-		clientID = id;
-	}
-	else
+		if (id.length() > 0)
+		{
+			clientID = id;
+		}
+	} catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Please enter client ID using alpha-numeric.");
 	}
 }
 void WorkTicket::SetTicketDay(int day)
 {
-	if (day >= 1 && day <= 31)
+	
+	
+	try
 	{
-		ticketDay = day;
-	}
-	else
+		if (day >= 1 && day <= 31)
+		{
+			ticketDay = day;
+		}
+	} catch (std::invalid_argument)
 	{
-		throw std::invalid_argument("Invalid Day. Please enter day between 1 and 31");
+		throw std::invalid_argument("Invalid Day. Please enter a day between 1 and 31");
 	}
 }
 void WorkTicket::SetTicketMonth(int month)
 {
-	if (month >= 1 && month <= 12)
+	
+	
+	try
 	{
-		ticketMonth = month;
-	}
-	else
+		if (month >= 1 && month <= 12)
+		{
+			ticketMonth = month;
+		}
+	} catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Invalid Month. Please enter month between 1 and 12");
 	}
 }
 void WorkTicket::SetTicketYear(int year)
 {
-	if (year <= 2099 && year >= 2000)
+	
+	
+	try
 	{
-		ticketYear = year;
-	}
-	else
+		if (year <= 2099 && year >= 2000)
+		{
+			ticketYear = year;
+		}
+	} catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
 	}
 }
 void WorkTicket::SetIssueDescription(std::string description)
 {
-	if (description.length() > 0)
+	
+	
+	try
 	{
-		issueDescription = description;
-	}
-	else
+		if (description.length() > 0)
+		{
+			issueDescription = description;
+		}
+	} catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Please enter descriptive issue.");
 	}
