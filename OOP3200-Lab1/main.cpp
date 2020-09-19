@@ -53,7 +53,7 @@ public:
 //Constructor Definition
 WorkTicket::WorkTicket(int number, std::string id, int day, int month, int year, std::string description)
 {
-	SetWorkTicket::WorkTicket(number, std::string id, day, month, year, std::string description);
+	WorkTicket(number, id, day, month, year, description);
 }
 
 bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, int year, std::string description)
@@ -92,46 +92,47 @@ int main()
 	int numberInput, dayInput, monthInput, yearInput;
 	std::string idInput, descriptionInput;
 
-	cout << "Please enter the following information when prompted." << endl;
+	std::cout << "Please enter the following information when prompted." << std::endl;
 
 	for (int i = 0; i < 3; i++)
 	{
 		try
 		{
-			cout << "\nEnter ticket number: ";
+			std::cout << "\nEnter ticket number: ";
 			numberInput = ConsoleInput::ReadInteger();
 			arr[i].SetTicketNumber(numberInput);
 
-			cout << "\nEnter Client ID: ";
-			cin >> idInput;
+			std::cout << "\nEnter Client ID: ";
+			std::cin >> idInput;
 			arr[i].SetClientID(idInput);
 
-			cout << "\nEnter Date: ";
-			cin >> dayInput >> monthInput >> yearInput;
+			std::cout << "\nEnter Date: ";
+			std::cin >> dayInput >> monthInput >> yearInput;
 			arr[i].SetTicketDay(dayInput);
 			arr[i].SetTicketMonth(monthInput);
 			arr[i].SetTicketYear(yearInput);
 
-			cout << "\nEnter Descriptive Issue: ";
-			cin >> descriptionInput; 
-			arr[i].SetIssueDescription(descriptionInput); 
+			std::cout << "\nEnter Descriptive Issue: ";
+			std::cin >> descriptionInput;
+			arr[i].SetIssueDescription(descriptionInput);
 		}
-		catch (const exception& ex)
+		catch (const std::exception& ex)
 		{
-			cerr << ex.what();
+			std::cerr << ex.what();
 		}
 	}
-	cout << endl;
+	std::cout << std::endl;
 
-	cout << "Following information was received.";
+	std::cout << "Following information was received.";
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Ticket Number: " << arr[i].GetTicketNumber() << endl;
-		cout << "Client ID: " << arr[i].GetClientID() << endl;
-		cout << "Date: " << arr[i].GetTicketDay() << " / " << arr[i].GetTicketMonth()
-			 << " / " << arr[i].GetTicketYear() << endl;
-		cout << "Description: " << arr[i].GetIssueDescription() << endl << endl;
+		std::cout << "Ticket Number: " << arr[i].GetTicketNumber() << std::endl;
+		std::cout << "Client ID: " << arr[i].GetClientID() << std::endl;
+		std::cout << "Date: " << arr[i].GetTicketDay() << " / " << arr[i].GetTicketMonth()
+			<< " / " << arr[i].GetTicketYear() << std::endl;
+		std::cout << "Description: " << arr[i].GetIssueDescription() << std::endl << std::endl;
 	}
+}
 
 void WorkTicket::SetTicketNumber(int number)
 {
@@ -141,11 +142,11 @@ void WorkTicket::SetTicketNumber(int number)
 	}
 	else
 	{
-		throw invalid_argument("Ticket Number must be a positive whole number. Please try again.");
+		throw std::invalid_argument("Ticket Number must be a positive whole number. Please try again.");
 
 	}
 }
-void WorkTicket::SetClientID(std:string id)
+void WorkTicket::SetClientID(std::string id)
 {
 	if (id.length() > 0)
 	{
@@ -153,7 +154,7 @@ void WorkTicket::SetClientID(std:string id)
 	}
 	else
 	{
-		throw invalid_argument("Please enter client ID using alpha-numeric.");
+		throw std::invalid_argument("Please enter client ID using alpha-numeric.");
 	}
 }
 void WorkTicket::SetTicketDay(int day)
@@ -164,7 +165,7 @@ void WorkTicket::SetTicketDay(int day)
 	}
 	else
 	{
-		throw invalid_argument("Invalid Day. Please enter day between 1 and 31");
+		throw std::invalid_argument("Invalid Day. Please enter day between 1 and 31");
 	}
 }
 void WorkTicket::SetTicketMonth(int month)
@@ -175,7 +176,7 @@ void WorkTicket::SetTicketMonth(int month)
 	}
 	else
 	{
-		throw invalid_argument("Invalid Month. Please enter month between 1 and 12");
+		throw std::invalid_argument("Invalid Month. Please enter month between 1 and 12");
 	}
 }
 void WorkTicket::SetTicketYear(int year)
@@ -186,7 +187,7 @@ void WorkTicket::SetTicketYear(int year)
 	}
 	else
 	{
-		throw invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
+		throw std::invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
 	}
 }
 void WorkTicket::SetIssueDescription(std::string description)
@@ -197,7 +198,7 @@ void WorkTicket::SetIssueDescription(std::string description)
 	}
 	else
 	{
-		throw invalid_argument("Please enter descriptive issue.");
+		throw std::invalid_argument("Please enter descriptive issue.");
 	}
 }
 
