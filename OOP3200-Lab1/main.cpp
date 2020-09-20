@@ -154,9 +154,7 @@ int main()
 }
 
 void WorkTicket::SetTicketNumber(int number)
-{
-	
-	
+{	
 	try
 	{
 		if (number > 0) 
@@ -178,67 +176,64 @@ void WorkTicket::SetClientID(std::string id)
 		{
 			clientID = id;
 		}
-	} catch (std::invalid_argument)
+	}
+	catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Please enter client ID using alpha-numeric.");
 	}
 }
 void WorkTicket::SetTicketDay(int day)
-{
-	
-	
+{	
 	try
 	{
 		if (day >= 1 && day <= 31)
 		{
 			ticketDay = day;
 		}
-	} catch (std::invalid_argument)
+	}
+	catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Invalid Day. Please enter a day between 1 and 31");
 	}
 }
 void WorkTicket::SetTicketMonth(int month)
-{
-	
-	
+{	
 	try
 	{
 		if (month >= 1 && month <= 12)
 		{
 			ticketMonth = month;
 		}
-	} catch (std::invalid_argument)
+	}
+	catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Invalid Month. Please enter month between 1 and 12");
 	}
 }
 void WorkTicket::SetTicketYear(int year)
-{
-	
-	
+{	
 	try
 	{
 		if (year <= 2099 && year >= 2000)
 		{
 			ticketYear = year;
 		}
-	} catch (std::invalid_argument)
+	}
+	catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
 	}
 }
 void WorkTicket::SetIssueDescription(std::string description)
 {
-	
-	
 	try
 	{
 		if (description.length() > 0)
 		{
 			issueDescription = description;
 		}
-	} catch (std::invalid_argument)
+	}
+	catch (std::invalid_argument)
 	{
 		throw std::invalid_argument("Please enter descriptive issue.");
 	}
