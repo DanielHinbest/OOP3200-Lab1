@@ -16,16 +16,16 @@ class WorkTicket
 	//start of private
 private:
 	//private data members
-	int ticketNumber;
-	std::string clientID;
-	int ticketDay;
-	int ticketMonth;
-	int ticketYear;
-	std::string issueDescription;
+	int ticketNumber;	// user ticket input
+	std::string clientID; // user client ID
+	int ticketDay;			//user day
+	int ticketMonth;		//user month
+	int ticketYear;			//user year
+	std::string issueDescription; // user issue description
 
 	//start of public
 public:
-	//Default constructor. If paramaters aren't declared, the ticket takes in these default parameters
+	//Default constructor. If parameters aren't declared, the ticket takes in these default parameters
 	WorkTicket(int ticketNumber = 0, std::string clientID = "", int ticketDay = 1, int ticketMonth = 1,
 		int ticketYear = 2000, std::string issueDescription = "");
 
@@ -38,7 +38,7 @@ public:
 	std::string GetIssueDescription();
 	void ShowWorkTicket() const;
 
-	//All mutators/ "Setters"
+	//All Mutators "Setters"
 	void SetTicketNumber(int ticketNumber);
 	void SetClientID(std::string clientID);
 	void SetTicketDay(int ticketDay);
@@ -54,17 +54,19 @@ int main()
 {
 	//Prompt for user input
 	std::cout << "Please enter the following information when prompted." << std::endl;
+	std::cout << "=====================================================" << std::endl;
 	
 	//Array declaration for WorkTicket class
 	WorkTicket workTicketArr[3];
 
+	//Endline
 	std::cout << std::endl;
 
 	//For loop to output all the WorkTicket array elements to the console
 	std::cout << "Following information was received." << std::endl;
 	for (int i = 0; i < 3; i++)
 	{
-		std::cout << "Ticket Number: " << workTicketArr[i].GetTicketNumber() << std::endl;
+		std::cout << "\nTicket Number: " << workTicketArr[i].GetTicketNumber() << std::endl;
 		std::cout << "Client ID: " << workTicketArr[i].GetClientID() << std::endl;
 		std::cout << "Date: " << workTicketArr[i].GetTicketDay() << " / " << workTicketArr[i].GetTicketMonth()
 			<< " / " << workTicketArr[i].GetTicketYear() << std::endl;
@@ -83,6 +85,15 @@ WorkTicket::WorkTicket(int number, std::string id, int day, int month, int year,
 	SetIssueDescription(description);
 }
 
+//Accessor to display the work ticket to the user
+void WorkTicket::ShowWorkTicket() const
+{
+	std::cout << "\nTicket Number: " << ticketNumber
+		<< "\nClient ID: " << clientID
+		<< "\nDate: " << ticketDay << "/" << ticketMonth << "/" << ticketYear
+		<< "\nDescription:\n\t" << issueDescription << std::endl;
+}
+// Mutator that sets all the attributes
 bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, int year, std::string description)
 {
 	//Constant Variables
@@ -112,15 +123,6 @@ bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, i
 	}
 	
 	return returnValue;
-}
-
-//Accessor to display the work ticket to the user
-void WorkTicket::ShowWorkTicket() const
-{
-	std::cout << "\nTicket Number: " << ticketNumber
-		<< "\nClient ID: " << clientID
-		<< "\nDate: " << ticketDay << "/" << ticketMonth << "/" << ticketYear
-		<< "\nDescription:\n\t" << issueDescription << std::endl;
 }
 
 //Mutator function - Sets the ticket number
@@ -160,10 +162,7 @@ void WorkTicket::SetTicketNumber(int number)
 			std::cerr << ex.what() << std::endl;
 		}
 	}
-	
-
 }
-
 //Mutator method - Sets the client ID
 void WorkTicket::SetClientID(std::string id)
 {
@@ -185,10 +184,8 @@ void WorkTicket::SetClientID(std::string id)
 			clientID = id;
 			validInput = true;
 		}
-	}
-	
+	}	
 }
-
 //Mutator method - Sets the day attribute
 void WorkTicket::SetTicketDay(int day)
 {
@@ -223,10 +220,8 @@ void WorkTicket::SetTicketDay(int day)
 		{
 			std::cerr << "\t" << ex.what() << std::endl;
 		}
-	}
-	
+	}	
 }
-
 //Mutator method - Sets the month attribute
 void WorkTicket::SetTicketMonth(int month)
 {
@@ -261,10 +256,8 @@ void WorkTicket::SetTicketMonth(int month)
 		{
 			std::cerr << "\t" << ex.what() << std::endl;
 		}
-	}
-	
+	}	
 }
-
 //Mutator method - Sets the year attribute
 void WorkTicket::SetTicketYear(int year)
 {
@@ -300,9 +293,7 @@ void WorkTicket::SetTicketYear(int year)
 			std::cerr << ex.what() << std::endl;
 		}
 	}
-	
 }
-
 //Mutator method - Sets the description
 void WorkTicket::SetIssueDescription(std::string description)
 {
