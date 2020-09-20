@@ -9,13 +9,14 @@
 #include<sstream>
 #include<iomanip>
 #include "MyConsoleInput.h"
-//TODO: Fix all accessor and mutator names
+#include "MyconsoleInput.cpp"
 
 // class declaration 
 class WorkTicket
 {
-	//private data members
+//start of private
 private:
+//private data members
 	int ticketNumber;
 	std::string clientID;
 	int ticketDay;
@@ -23,13 +24,13 @@ private:
 	int ticketYear;
 	std::string issueDescription; 
 
-	//start of public
+//start of public
 public:
 	//Default constructor. If paramaters aren't declared, the ticket takes in these default parameters
 	WorkTicket(int ticketNumber = 0, std::string clientID = "", int ticketDay = 1, int ticketMonth = 1,
 				  int ticketYear = 2000, std::string issueDescription = "");
 	
-	//All accessors. "Getters"
+	//All Accessors Declarations. "Getters"
 	int GetTicketNumber();
 	std::string GetClientID();
 	int GetTicketDay();
@@ -53,6 +54,7 @@ public:
 //Constructor Definition
 WorkTicket::WorkTicket(int number, std::string id, int day, int month, int year, std::string description)
 {
+	//Assigning the parameters to attributes of the class
 	SetTicketNumber(ticketNumber);
 	SetClientID(clientID);
 	SetTicketMonth(month);
@@ -63,15 +65,17 @@ WorkTicket::WorkTicket(int number, std::string id, int day, int month, int year,
 
 bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, int year, std::string description)
 {
+	//Constant Variables
 	const int DAYS = 31;
 	const int MONTHS = 12;
 	const int YEAR_MINIMUM = 2000;
 	const int YEAR_MAXIMUM = 2099;
 
+	//Variable for returning a boolean value
 	bool returnValue;
 
-	
-	if (ticketNumber <= 0 || month < 1 || month > MONTHS
+	//range validation
+	if (ticketNumber < 0 || month < 1 || month > MONTHS
 	|| day < 1 || day > DAYS || year < YEAR_MINIMUM || year > YEAR_MAXIMUM)
 		returnValue = false;
 	else if (clientID.length() < 1 || description.length() < 1)
@@ -91,6 +95,7 @@ bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, i
 	return returnValue;
 }
 
+//Accessor to display the work ticket to the user
 void WorkTicket::ShowWorkTicket() const
 {
 	std::cout << "\nTicket Number: " << ticketNumber
@@ -101,12 +106,17 @@ void WorkTicket::ShowWorkTicket() const
 
 int main()
 {
+	//Array declaration for WorkTicket class
 	WorkTicket arr[3];
+
+	//Variable declaration
 	int numberInput, dayInput, monthInput, yearInput;
 	std::string idInput, descriptionInput;
 
+	//Prompt for user input
 	std::cout << "Please enter the following information when prompted." << std::endl;
 
+	//Loop to go through input for all elements in the array
 	for (int i = 0; i < 3; i++)
 	{
 		try
@@ -122,9 +132,9 @@ int main()
 			std::cout << "\nEnter Date: ";
 			std::cout << "\n\tDay: ";
 			std::cin >> dayInput;
-			std::cout << "\n\tMonth: ";
+			std::cout << "\tMonth: ";
 			std::cin >> monthInput;
-			std::cout << "\n\tYear: ";
+			std::cout << "\tYear: ";
 			std::cin >> yearInput;
 
 			arr[i].SetTicketDay(dayInput);
@@ -137,12 +147,13 @@ int main()
 		}
 		catch (const std::exception& ex)
 		{
-			std::cerr << ex.what();
+			std::cerr << ex.what(); 
 		}
 	}
 	std::cout << std::endl;
 
-	std::cout << "Following information was received.";
+	//For loop to output all the WorkTicket array elements to the console
+	std::cout << "Following information was received." << std::endl;
 	for (int i = 0; i < 3; i++)
 	{
 		std::cout << "Ticket Number: " << arr[i].GetTicketNumber() << std::endl;
@@ -153,25 +164,33 @@ int main()
 	}
 }
 
+//Mutator function - Sets the ticket number
 void WorkTicket::SetTicketNumber(int number)
-{	
+{
+	//Try/Catch for exception handling
 	try
 	{
+		//If number is greater than 0, set the ticketNumber
 		if (number > 0) 
 		{
 			ticketNumber = number;
 		}
-	}
-	catch (std::invalid_argument)
+	}		
+	catch(std::invalid_argument)
 	{
+		//Throw the exception
 		throw std::invalid_argument("Ticket Number must be a positive whole number. Please try again.");
 	}
 	
 }
+
+//Mutator method - Sets the client ID
 void WorkTicket::SetClientID(std::string id)
 {
+	//Try/Catch for exception handling
 	try
 	{
+		//If number is greater than 0, set the clientID
 		if (id.length() > 0)
 		{
 			clientID = id;
@@ -179,13 +198,18 @@ void WorkTicket::SetClientID(std::string id)
 	}
 	catch (std::invalid_argument)
 	{
+		//Throw the exception
 		throw std::invalid_argument("Please enter client ID using alpha-numeric.");
 	}
 }
+
+//Mutator method - Sets the day attribute
 void WorkTicket::SetTicketDay(int day)
-{	
+{
+	//Try/Catch for exception handling
 	try
 	{
+		//If number is greater than 0, set the ticketDay
 		if (day >= 1 && day <= 31)
 		{
 			ticketDay = day;
@@ -193,13 +217,18 @@ void WorkTicket::SetTicketDay(int day)
 	}
 	catch (std::invalid_argument)
 	{
+		//Throw the exception
 		throw std::invalid_argument("Invalid Day. Please enter a day between 1 and 31");
 	}
 }
+
+//Mutator method - Sets the month attribute
 void WorkTicket::SetTicketMonth(int month)
-{	
+{
+	//Try/Catch for exception handling
 	try
 	{
+		//If number is greater than 0, set the ticketMonth
 		if (month >= 1 && month <= 12)
 		{
 			ticketMonth = month;
@@ -207,13 +236,18 @@ void WorkTicket::SetTicketMonth(int month)
 	}
 	catch (std::invalid_argument)
 	{
+		//Throw the exception
 		throw std::invalid_argument("Invalid Month. Please enter month between 1 and 12");
 	}
 }
+
+//Mutator method - Sets the year attribute
 void WorkTicket::SetTicketYear(int year)
-{	
+{
+	//Try/Catch for exception handling
 	try
 	{
+		//If number is greater than 0, set the ticketYear
 		if (year <= 2099 && year >= 2000)
 		{
 			ticketYear = year;
@@ -221,13 +255,18 @@ void WorkTicket::SetTicketYear(int year)
 	}
 	catch (std::invalid_argument)
 	{
+		//Throw the exception
 		throw std::invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
 	}
 }
+
+//Mutator method - Sets the description
 void WorkTicket::SetIssueDescription(std::string description)
 {
+	//Try/Catch for exception handling
 	try
 	{
+		//If number is greater than 0, set the issueDescription
 		if (description.length() > 0)
 		{
 			issueDescription = description;
@@ -235,30 +274,42 @@ void WorkTicket::SetIssueDescription(std::string description)
 	}
 	catch (std::invalid_argument)
 	{
+		//Throw the exception
 		throw std::invalid_argument("Please enter descriptive issue.");
 	}
 }
 
+//Accessor method - returns the ticket number
 int WorkTicket::GetTicketNumber()
 {
 	return ticketNumber;
 }
+
+//Accessor method - returns the client ID
 std::string WorkTicket::GetClientID()
 {
 	return clientID;
 }
+
+//Accessor method - returns the ticket day
 int WorkTicket::GetTicketDay()
 {
 	return ticketDay;
 }
+
+//Accessor method - returns the ticket month
 int WorkTicket::GetTicketMonth()
 {
 	return ticketMonth;
 }
+
+//Accessor method - returns the ticket year
 int WorkTicket::GetTicketYear()
 {
 	return ticketYear;
 }
+
+//Accessor method - returns the issue description
 std::string WorkTicket::GetIssueDescription()
 {
 	return issueDescription;
