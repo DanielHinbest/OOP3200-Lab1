@@ -142,8 +142,6 @@ void WorkTicket::SetTicketNumber(int number)
 			{
 				std::cin.clear();
 				std::cin.ignore((256, '\n'));
-				throw std::invalid_argument("Ticket Number must be a positive whole number. Please try again.");
-
 			}
 			//If number is greater than 0, set the ticketNumber
 			if (number > 0)
