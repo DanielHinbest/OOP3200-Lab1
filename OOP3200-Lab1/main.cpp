@@ -9,7 +9,6 @@
 #include<sstream>
 #include<iomanip>
 #include "MyConsoleInput.h"
-#include "MyconsoleInput.cpp"
 
  // class declaration 
 class WorkTicket
