@@ -5,9 +5,9 @@
  */
 
 #include <iostream>
-#include<stdexcept>
-#include<sstream>
-#include<iomanip>
+#include <stdexcept>
+#include <sstream>
+#include <iomanip>
 #include "MyConsoleInput.h"
 
  // class declaration 
@@ -52,51 +52,12 @@ public:
 
 int main()
 {
+	//Prompt for user input
+	std::cout << "Please enter the following information when prompted." << std::endl;
+	
 	//Array declaration for WorkTicket class
 	WorkTicket workTicketArr[3];
 
-	//Variable declaration
-	int numberInput, dayInput, monthInput, yearInput;
-	std::string idInput, descriptionInput;
-
-	//Prompt for user input
-	std::cout << "Please enter the following information when prompted." << std::endl;
-
-	//Loop to go through input for all elements in the array
-	for (int i = 0; i < 3; i++)
-	{
-		try
-		{
-			std::cout << "\nEnter ticket number: ";
-			numberInput = ConsoleInput::ReadInteger();
-			workTicketArr[i].SetTicketNumber(numberInput);
-
-			std::cout << "\nEnter Client ID: ";
-			std::cin >> idInput;
-			workTicketArr[i].SetClientID(idInput);
-
-			std::cout << "\nEnter Date: ";
-			std::cout << "\n\tDay: ";
-			std::cin >> dayInput;
-			workTicketArr[i].SetTicketDay(dayInput);
-
-			std::cout << "\tMonth: ";
-			std::cin >> monthInput;
-			workTicketArr[i].SetTicketMonth(monthInput);
-
-			std::cout << "\tYear: ";
-			std::cin >> yearInput;			
-			workTicketArr[i].SetTicketYear(yearInput);
-
-			std::cout << "\nEnter Descriptive Issue: ";
-			std::cin >> descriptionInput;
-			workTicketArr[i].SetIssueDescription(descriptionInput);
-		}
-		catch (std::exception& ex)
-		{
-			std::cerr << ex.what();
-		}
-	}
 	std::cout << std::endl;
 
 	//For loop to output all the WorkTicket array elements to the console
@@ -149,8 +110,7 @@ bool WorkTicket::SetWorkTicket(int number, std::string id, int day, int month, i
 		issueDescription = description;
 		return true;
 	}
-
-
+	
 	return returnValue;
 }
 
@@ -166,141 +126,207 @@ void WorkTicket::ShowWorkTicket() const
 //Mutator function - Sets the ticket number
 void WorkTicket::SetTicketNumber(int number)
 {
+	bool validInput = false;
 	//Try/Catch for exception handling
-	try
+
+	while (!validInput)
 	{
-		//If number is greater than 0, set the ticketNumber
-		if (number > 0)
+		try
 		{
-			ticketNumber = number;
+			std::cout << "\nEnter ticket number: ";
+			number = ConsoleInput::ReadInteger();
+
+			if (std::cin.fail())
+			{
+				std::cin.clear();
+				std::cin.ignore((256, '\n'));
+				throw std::invalid_argument("Ticket Number must be a positive whole number. Please try again.");
+
+			}
+			//If number is greater than 0, set the ticketNumber
+			if (number > 0)
+			{
+				ticketNumber = number;
+				validInput = true;
+			}
+			else
+			{
+				//Throw the exception
+				throw std::invalid_argument("Ticket Number must be a positive whole number. Please try again.");
+			}
 		}
-		else
+		catch (std::invalid_argument& ex)
 		{
-			//Throw the exception
-			throw std::invalid_argument("Ticket Number must be a positive whole number. Please try again.");
+			std::cerr << ex.what() << std::endl;
 		}
 	}
-	catch (std::invalid_argument& ex)
-	{
-		std::cerr << ex.what();
-	}
+	
 
 }
 
 //Mutator method - Sets the client ID
 void WorkTicket::SetClientID(std::string id)
 {
-	//Try/Catch for exception handling
-	try
+	bool validInput = false;
+
+	while (!validInput)
 	{
+		std::cout << "\nEnter Client ID: ";
+		std::cin >> id;
+
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(256, '\n');
+		}
 		//If number is greater than 0, set the clientID
 		if (id.length() > 0)
 		{
 			clientID = id;
-		}
-		else
-		{
-			//Throw the exception
-			throw std::invalid_argument("Please enter client ID using alpha-numeric.");
+			validInput = true;
 		}
 	}
-	catch (std::invalid_argument& ex)
-	{
-		std::cerr << ex.what();
-	}
+	
 }
 
 //Mutator method - Sets the day attribute
 void WorkTicket::SetTicketDay(int day)
 {
-	//Try/Catch for exception handling
-	try
+	bool validInput = false;
+
+	while (!validInput)
 	{
-		//If number is greater than 0, set the ticketDay
-		if (day >= 1 && day <= 31)
+		//Try/Catch for exception handling
+		try
 		{
-			ticketDay = day;
+			std::cout << "\nEnter Day: ";
+			std::cin >> day;
+
+			if (std::cin.fail())
+			{
+				std::cin.clear();
+				std::cin.ignore(256, '\n');
+			}
+			//If number is greater than 0, set the ticketDay
+			if (day >= 1 && day <= 31)
+			{
+				ticketDay = day;
+				validInput = true;
+			}
+			else
+			{
+				//Throw the exception
+				throw std::invalid_argument("Invalid Day. Please enter a day between 1 and 31");
+			}
 		}
-		else
+		catch (std::invalid_argument& ex)
 		{
-			//Throw the exception
-			throw std::invalid_argument("Invalid Day. Please enter a day between 1 and 31");
+			std::cerr << "\t" << ex.what() << std::endl;
 		}
 	}
-	catch (std::invalid_argument& ex)
-	{
-		std::cerr << ex.what();
-	}
+	
 }
 
 //Mutator method - Sets the month attribute
 void WorkTicket::SetTicketMonth(int month)
 {
-	//Try/Catch for exception handling
-	try
+	bool validInput = false;
+
+	while (!validInput)
 	{
-		//If number is greater than 0, set the ticketMonth
-		if (month >= 1 && month <= 12)
+		//Try/Catch for exception handling
+		try
 		{
-			ticketMonth = month;
+			std::cout << "\nEnter Month: ";
+			std::cin >> month;
+
+			if (std::cin.fail())
+			{
+				std::cin.clear();
+				std::cin.ignore(256, '\n');
+			}
+			//If number is greater than 0, set the ticketMonth
+			if (month >= 1 && month <= 12)
+			{
+				ticketMonth = month;
+				validInput = true;
+			}
+			else
+			{
+				//Throw the exception
+				throw std::invalid_argument("Invalid Month. Please enter month between 1 and 12");
+			}
 		}
-		else
+		catch (std::invalid_argument& ex)
 		{
-			//Throw the exception
-			throw std::invalid_argument("Invalid Month. Please enter month between 1 and 12");
+			std::cerr << "\t" << ex.what() << std::endl;
 		}
 	}
-	catch (std::invalid_argument& ex)
-	{
-		std::cerr << ex.what();
-	}
+	
 }
 
 //Mutator method - Sets the year attribute
 void WorkTicket::SetTicketYear(int year)
 {
-	//Try/Catch for exception handling
-	try
+	bool validInput = false;
+
+	while (!validInput)
 	{
-		//If number is greater than 0, set the ticketYear
-		if (year <= 2099 && year >= 2000)
+		//Try/Catch for exception handling
+		try
 		{
-			ticketYear = year;
+			std::cout << "\nEnter Year: ";
+			std::cin >> year;
+
+			if (std::cin.fail())
+			{
+				std::cin.clear();
+				std::cin.ignore(256, '\n');
+			}
+			//If number is greater than 0, set the ticketYear
+			if (year <= 2099 && year >= 2000)
+			{
+				ticketYear = year;
+				validInput = true;
+			}
+			else
+			{
+				//Throw the exception
+				throw std::invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
+			}
 		}
-		else
+		catch (std::invalid_argument& ex)
 		{
-			//Throw the exception
-			throw std::invalid_argument("Invalid Year. Please enter year between 2000 and 2099.");
+			std::cerr << ex.what() << std::endl;
 		}
 	}
-	catch (std::invalid_argument& ex)
-	{
-		std::cerr << ex.what();
-	}
+	
 }
 
 //Mutator method - Sets the description
 void WorkTicket::SetIssueDescription(std::string description)
 {
-	//Try/Catch for exception handling
-	try
+	bool validInput = false;
+
+
+	std::cout << "\nEnter Descriptive Issue: ";
+	while (!validInput)
 	{
+		std::getline(std::cin, description);
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(256, '\n');
+		}
 		//If number is greater than 0, set the issueDescription
 		if (description.length() > 0)
 		{
 			issueDescription = description;
+			validInput = true;
 		}
-		else
-		{
-			//Throw the exception
-			throw std::invalid_argument("Please enter descriptive issue.");
-		}
-	}
-	catch (std::invalid_argument& ex)
-	{
-		std::cerr << ex.what();
 	}
 }
+	
 
 //Accessor method - returns the ticket number
 int WorkTicket::GetTicketNumber()
